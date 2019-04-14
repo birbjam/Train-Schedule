@@ -9,6 +9,7 @@ var config = {
     storageBucket: "train-schedule-deb54.appspot.com",
     messagingSenderId: "977108646385"
 };
+
 firebase.initializeApp(config);
 
 // Create a variable to reference the database.
@@ -26,7 +27,7 @@ var currentDate = moment().format("MM/DD/YYYY");
 
 // Capture Button Click
 document.querySelector("#add-train").addEventListener("click", function (event) {
-    //event.preventDefault();
+    event.preventDefault();
 
     // Grabbed values from text boxes
 
