@@ -15,28 +15,31 @@ firebase.initializeApp(config);
 // Create a variable to reference the database.
 var database = firebase.database();
 
-// Initial Values
+// Declaring initial global variables
 var name = "";
 var destination = "";
 var frequency = "";
 var nextArrival = 0;
 var firstTrainTime = "";
-var minutesAway = 0;
-var currentDate = moment().format("MM/DD/YYYY");
+//var minutesAway = moment.duration(10000).minutes(2);
+var currentTime = moment().format("HH/mm");
+
+//console.log(moment.duration("01/01/2018"));
+
+console.log("the current time is: " + currentTime);
+//console.log("Testing duration.minutes: " + minutesAway);
 
 
-// Capture Button Click
+// Event listener for the submit button
 document.querySelector("#add-train").addEventListener("click", function (event) {
     event.preventDefault();
 
-    // Grabbed values from text boxes
+    // Getting the input values from the textbox
 
     name = document.querySelector("#name").value.trim();
     destination = document.querySelector("#destination").value.trim();
     frequency = document.querySelector("#frequency").value.trim();
     firstTrainTime = document.querySelector("#first-train").value;
-
-    //console.log(moment.duration("01/01/2018"));
 
 
     // Code for handling the push
@@ -50,13 +53,21 @@ document.querySelector("#add-train").addEventListener("click", function (event) 
 
 });
 
+// Setting up a clear function to clear the input fields after they've been submitted.
+    function clearInput() {
+        document.querySelector("#name").value = "";
+        document.querySelector("#destination").value = "";
+        document.querySelector("#frequency").value = "";
+        document.querySelector("#first-train").value = "";
+    }
+
+//Capturing frequency
+
+
 // Firebase watcher .on("child_added"
 database.ref().on("child_added", function (snapshot) {
     // storing the snapshot.val() in a variable for convenience
     var snVal = snapshot.val();
-
-    // Console.loging the last user's data
-
 
     // full list of items to the well
     let fullListEl = document.querySelector("#table-list");
@@ -93,11 +104,11 @@ database.ref().on("child_added", function (snapshot) {
     fullListEl.appendChild(wellEl);
 
 
-
-
     // Handle the errors
 }, function (errorObject) {
     console.log(`Errors handled: ${errorObject.code}`);
 });
+
+
 
 };
