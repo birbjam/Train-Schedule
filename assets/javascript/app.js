@@ -21,19 +21,24 @@ var name = "";
 var destination = "";
 var frequency = "";
 var firstTrainTime = "";
+var updateTrainTime = "";
+var currentTime = moment().format("HH:mm");
 
 var nextArrival = "";
+
 //moment().add(frequency, 'minutes');
 
 //console.log(nextArrival);
 
 
 
-//var minutesAway = moment.duration(10000).minutes(2);
-var currentTime = moment().format("HH:mm");
+//var minutesAway = currentTime - frequency;
+
 
 //var x = moment.duration(currentTime).minutes();
 //console.log(x);
+
+
 
 // START DISPLAYED CLOCK
 
@@ -73,7 +78,7 @@ document.querySelector("#add-train").addEventListener("click", function (event) 
     firstTrainTime = document.querySelector("#first-train").value;
 
 
-    // Code for handling the push
+    // Format for how the data will be saved to the databse.
     database.ref().push({
         name: name,
         destination: destination,
@@ -99,12 +104,12 @@ document.querySelector("#add-train").addEventListener("click", function (event) 
 //Capturing frequency
 
 
-// Firebase watcher .on("child_added"
+// Firebase watcher for capturing the data
 database.ref().on("child_added", function (snapshot) {
     // storing the snapshot.val() in a variable for convenience
     var snVal = snapshot.val();
 
-    // full list of items to the well
+    // full list of items to the table
     let fullListEl = document.querySelector("#table-list");
     let wellEl = document.createElement("tr");
     wellEl.classList.add("well");
