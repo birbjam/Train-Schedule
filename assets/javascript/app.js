@@ -20,16 +20,22 @@ var database = firebase.database();
 var name = "";
 var destination = "";
 var frequency = "";
-var nextArrival = "";
 var firstTrainTime = "";
+
+var nextArrival = "";
+//moment().add(frequency, 'minutes');
+
+//console.log(nextArrival);
+
+
 
 //var minutesAway = moment.duration(10000).minutes(2);
 var currentTime = moment().format("HH:mm");
 
-var x = moment.duration(currentTime).minutes();
-console.log(x);
+//var x = moment.duration(currentTime).minutes();
+//console.log(x);
 
-// DISPLAYED CLOCK
+// START DISPLAYED CLOCK
 
 // Variable for the clock that will display current time.
 // The variable stores the div with the id clock.
@@ -76,9 +82,13 @@ document.querySelector("#add-train").addEventListener("click", function (event) 
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     });
 
+    // Calling on the clear Input function to empty out the text boxes after the info has been submitted.
+    clearInput();
+
 });
 
-// Setting up a clear function to clear the input fields after they've been submitted.
+
+// Setting up a clearInput function to clear the input fields after they've been submitted.
     function clearInput() {
         document.querySelector("#name").value = "";
         document.querySelector("#destination").value = "";
@@ -99,7 +109,7 @@ database.ref().on("child_added", function (snapshot) {
     let wellEl = document.createElement("tr");
     wellEl.classList.add("well");
 
-    // <td>Mark</td>
+
     let nameEl = document.createElement("td");
     nameEl.classList.add("train-name");
     nameEl.innerText = snVal.name;
@@ -134,6 +144,6 @@ database.ref().on("child_added", function (snapshot) {
     console.log(`Errors handled: ${errorObject.code}`);
 });
 
-
+// Still need a function to handle errors for when time is inputted in the wrong format.
 
 };
