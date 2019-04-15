@@ -15,19 +15,44 @@ firebase.initializeApp(config);
 // Create a variable to reference the database.
 var database = firebase.database();
 
-// Declaring initial global variables
+
+// Declaring initial variables
 var name = "";
 var destination = "";
 var frequency = "";
-var nextArrival = 0;
+var nextArrival = "";
 var firstTrainTime = "";
+
 //var minutesAway = moment.duration(10000).minutes(2);
-var currentTime = moment().format("HH/mm");
+var currentTime = moment().format("HH:mm");
 
-//console.log(moment.duration("01/01/2018"));
+var x = moment.duration(currentTime).minutes();
+console.log(x);
 
-console.log("the current time is: " + currentTime);
-//console.log("Testing duration.minutes: " + minutesAway);
+// DISPLAYED CLOCK
+
+// Variable for the clock that will display current time.
+// The variable stores the div with the id clock.
+const clock = document.getElementById("clock");
+
+// Setting up the function to update the clock.
+function updateClock () {
+    // Declaring current time.
+    const now = moment();
+    // Setting the format for how the time should be displayed.
+    const display = now.format("HH:mm:ssA");
+    // Changing the contents of the clock div to display the time.
+    clock.textContent = display;
+}
+
+// Set interval method that counts up by 1 second, using the updateClock
+// function as an argument.
+setInterval(updateClock, 1000);
+
+// Calling on the updateClock function so that the clock starts as soon as the page loads.
+updateClock();
+
+// END OF DISPLAYED CLOCK
 
 
 // Event listener for the submit button
