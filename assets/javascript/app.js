@@ -20,7 +20,7 @@ var database = firebase.database();
 var name = "";
 var destination = "";
 var frequency = 0;
-var firstTrainTime = "";
+var firstTrainTime = 0;
 var currentTime = moment().format("HH:mm");
 
 
@@ -138,12 +138,12 @@ database.ref().on("child_added", function (snapshot) {
 
     let nextArrivalEl = document.createElement("td");
     nextArrivalEl.classList.add("train-next-arrival");
-    nextArrivalEl.innerText = snVal.nextArrival;
+    nextArrivalEl.innerText = snVal.nextTrainArrival;
     wellEl.appendChild(nextArrivalEl);
 
     let minutesAwayEl = document.createElement("td");
     minutesAwayEl.classList.add("train-minutes-away");
-    minutesAwayEl.innerText = snVal.minutesAway;
+    minutesAwayEl.innerText = snVal.minsAway;
     wellEl.appendChild(minutesAwayEl);
 
     fullListEl.appendChild(wellEl);
