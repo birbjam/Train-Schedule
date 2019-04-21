@@ -19,24 +19,29 @@ var database = firebase.database();
 // Declaring initial variables
 var name = "";
 var destination = "";
-var frequency = "";
+var frequency = 0;
 var firstTrainTime = "";
-var updateTrainTime = "";
 var currentTime = moment().format("HH:mm");
 
-var nextArrival = "";
 
-//moment().add(frequency, 'minutes');
+var minsAway = function (firstTrainTime, frequency) {
+    var startTime = moment(firstTrainTime).set("year", moment().get("year")).set("month", moment().get("month")).set("date", moment().get("date")).subtract(1, "years");
+    var endTime = moment().set("year", moment().get("year")).set("month", moment().get("month")).set("date", moment().get("date"));
+    var duration = moment.duration(endTime.diff(startTime)).asMinutes();
+    duration = Math.round(duration);
+    var output = Math.abs((duration % frequency) - frequency);
+    return output;
+}
 
-//console.log(nextArrival);
+// Function that should output the next train Arrival using First Train Time and Frequency 
+// as arguments.
+var nextTrainArrival = function(firstTrainTime, frequency) {
+    var addMinutes = minsAway(firstTrainTime, frequency);
+    let currentTime = moment();
+    return currentTime.add(addMinutes, "m").format("HH:mm");
+}
 
-
-
-//var minutesAway = currentTime - frequency;
-
-
-//var x = moment.duration(currentTime).minutes();
-//console.log(x);
+//console.log(nextTrainArrival(12, 20));
 
 
 
@@ -78,7 +83,7 @@ document.querySelector("#add-train").addEventListener("click", function (event) 
     firstTrainTime = document.querySelector("#first-train").value;
 
 
-    // Format for how the data will be saved to the databse.
+    // How the data will be saved to the databse.
     database.ref().push({
         name: name,
         destination: destination,
