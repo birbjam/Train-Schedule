@@ -21,12 +21,13 @@ var name = "";
 var destination = "";
 var frequency = 0;
 var firstTrainTime = 0;
-var currentTime = moment().format("HH:mm");
+//var currentTime = moment().format("HH:mm");
 
-
+// Function that should calculate minutes away using the firsttraintime and frequency inputs as arguments.
 var minsAway = function (firstTrainTime, frequency) {
     var startTime = moment(firstTrainTime).set("year", moment().get("year")).set("month", moment().get("month")).set("date", moment().get("date")).subtract(1, "years");
     var endTime = moment().set("year", moment().get("year")).set("month", moment().get("month")).set("date", moment().get("date"));
+    // Getting the duration in minutes using entime and starttime.
     var duration = moment.duration(endTime.diff(startTime)).asMinutes();
     duration = Math.round(duration);
     var output = Math.abs((duration % frequency) - frequency);
@@ -42,7 +43,7 @@ var nextTrainArrival = function(firstTrainTime, frequency) {
 }
 
 //console.log(nextTrainArrival(12, 20));
-
+//nextTrainArrival(firstTrainTime, frequency);
 
 
 // START DISPLAYED CLOCK
@@ -89,6 +90,7 @@ document.querySelector("#add-train").addEventListener("click", function (event) 
         destination: destination,
         firstTrainTime: firstTrainTime,
         frequency: frequency,
+        //nextTrainArrival: nextTrainArrival,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     });
 
