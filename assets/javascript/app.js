@@ -43,7 +43,7 @@ var nextTrainArrival = function(firstTrainTime, frequency) {
 }
 
 //console.log(nextTrainArrival(12, 20));
-//nextTrainArrival(firstTrainTime, frequency);
+nextTrainArrival();
 
 
 // START DISPLAYED CLOCK
@@ -108,8 +108,6 @@ document.querySelector("#add-train").addEventListener("click", function (event) 
         document.querySelector("#first-train").value = "";
     }
 
-//Capturing frequency
-
 
 // Firebase watcher for capturing the data
 database.ref().on("child_added", function (snapshot) {
@@ -121,13 +119,17 @@ database.ref().on("child_added", function (snapshot) {
     let wellEl = document.createElement("tr");
     wellEl.classList.add("well");
 
-
+    // Creates the table cell for the name of the inputted train.
     let nameEl = document.createElement("td");
+    // Gives it the class of train-name. 
     nameEl.classList.add("train-name");
+    // Gives it the value of inputted name.
     nameEl.innerText = snVal.name;
 
+    // Appends to table.
     wellEl.appendChild(nameEl);
 
+    // Same as above except with destination.
     let destinationEl = document.createElement("td");
     destinationEl.classList.add("train-destination");
     destinationEl.innerText = snVal.destination;
